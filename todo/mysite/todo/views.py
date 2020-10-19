@@ -25,9 +25,9 @@ def complete(request, todo_id):
     try:
         selected_task = todo.task_set.get(pk=request.POST['task'])
     except (KeyError, Todo.DoesNotExist):
-        return render(request, 'todos/detail.html', {
-            'question': question,
-            'error_message': "You didn't select a choice.",
+        return render(request, 'todo/detail.html', {
+            'todo': todo,
+            'error_message': "You didn't select a task to mark as complete.",
         })
     else:
         selected_task.task_complete = not selected_task.task_complete
