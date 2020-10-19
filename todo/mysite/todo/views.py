@@ -19,3 +19,17 @@ class TodoView(generic.DetailView):
     template_name = 'todo/detail.html'
     def get_queryset(self):
         return Todo.objects.filter(pub_date__lte=timezone.now())
+
+def complete(request, todo_id):
+    todo = get_object_or_404(Todo, pk=todo_id)
+    try:
+        selected_task = todo.task_set.get(pk=request.POST['task'])
+    except (KeyError, Todo.DoesNotExist):
+        return render(request, 'todos/detail.html', {
+            'question': question,
+            'error_message': "You didn't select a choice.",
+        })
+    else:
+        selected_task.task_complete = True
+        selected_task.save()
+        return HttpResponseRedirect(reverse('polls:detail', args=(todo_id,)))

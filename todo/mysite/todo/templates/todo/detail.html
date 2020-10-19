@@ -3,9 +3,13 @@
 <h6>Active: {{ todo.todo_open }}</h6>
 
 <ul>
-  {% for task in todo.task_set.all %}
-  <li>{{ task.task_description }}</li>
-  {% endfor %}
+  {% for task in todo.task_set.all %} {% if task.task_complete %}
+  <li>
+    <h5 style="text-decoration: line-through">{{ task.task_description }}</h5>
+  </li>
+  {% else %}
+  <li><h5>{{ task.task_description }}</h5></li>
+  {% endif %} {% endfor %}
 </ul>
 
 {% if error_message %}
