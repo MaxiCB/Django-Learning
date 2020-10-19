@@ -30,6 +30,6 @@ def complete(request, todo_id):
             'error_message': "You didn't select a choice.",
         })
     else:
-        selected_task.task_complete = True
+        selected_task.task_complete = not selected_task.task_complete
         selected_task.save()
-        return HttpResponseRedirect(reverse('polls:detail', args=(todo_id,)))
+        return HttpResponseRedirect(reverse('todos:detail', args=(todo_id,)))

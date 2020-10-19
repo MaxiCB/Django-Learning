@@ -15,3 +15,17 @@
 {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>
 {% endif %}
+
+<form action="{% url 'todos:complete' todo.id %}" method="post">
+  {% csrf_token %} {% for task in todo.task_set.all %}
+  <input
+    type="radio"
+    name="task"
+    id="task{{ forloop.counter }}"
+    value="{{ task.id }}"
+  />
+  <label for="task{{ forloop.counter }}">{{ task.task_description }}</label
+  ><br />
+  {% endfor %}
+  <input type="submit" value="Toggle" />
+</form>
