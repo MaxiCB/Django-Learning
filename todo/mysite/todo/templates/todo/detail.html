@@ -1,0 +1,13 @@
+<h1>{{ todo.todo_name }}</h1>
+<h3>{{ todo.todo_description }}</h3>
+<h6>Active: {{ todo.todo_open }}</h6>
+
+<ul>
+  {% for task in todo.task_set.all %}
+  <li>{{ task.task_description }}</li>
+  {% endfor %}
+</ul>
+
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
